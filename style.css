@@ -87,8 +87,9 @@ button:hover {
 }
 
 .hero-image {
-  width: 100%;
-  height: 100%;
+  width: 100%; /* or max-width: 100%; if you want it to be responsive and not exceed its natural width */
+  height: auto; /* this will maintain the aspect ratio */
+  object-fit: contain; /* this will prevent stretching */
 }
 
 @media screen and (max-width: 768px) {
