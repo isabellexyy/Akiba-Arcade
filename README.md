@@ -1,3 +1,4 @@
-# Akiba-Arcade
-*The Ultimate Animeverse Digital Asset Marketplace on XRPL*
+# Akiba Arcade
+*The Ultimate Mobile Gaming Marketplace on XRPL*
+
 
