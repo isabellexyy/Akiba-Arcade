@@ -3,10 +3,10 @@
 
 Mobile gaming is a rapidly expanding industry. In 2023, Tencent’s Honour of Kings garnered a remarkable $1.48 billion, PUBG Mobile generated $1.14 billion, and Genshin Impact achieved $956.9 million in revenue. Mobile games featuring RPG elements and gacha mechanics often increase in value over time due to the accumulation of in-game assets. Consequently, there's a growing demand among players looking to depart from these games to monetize their accounts, which might include accumulated tokens, rare skins, or other exclusive benefits. Concurrently, new players interested in joining well-established games seek these enriched accounts to gain a head start. This dynamic fosters a market for buying and selling game accounts.
 
-###**Brief Description:**
+**Brief Description:**
 Akiba Arcade is a cutting-edge platform designed to revolutionise the trading of digital assets within the mobile gaming community. We aims to create a secure, decentralised, and community-driven ecosystem where enthusiasts can exchange game accounts and other digital assets with ease and confidence. 
 
-###**Main Objective:**
+**Main Objective:**
 **Web3 Infrastructure:** Utilise the decentralised nature of blockchain to offer a transparent and user-controlled experience, ensuring security and privacy for users’ transactions and assets. 
 
 **NFT-Backed Transactions:** Implement NFTs as digital receipts for every transaction. Once the purchase is complete, and NFT can be minted to provide indisputable proof of ownership and trade history for digital assets. 
