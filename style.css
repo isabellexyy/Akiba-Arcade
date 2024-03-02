@@ -35,6 +35,7 @@ nav a:hover {
 
 .hero {
   background: #fdcc04;
+  min-height: 100vh;
 }
 
 .hero-container {
@@ -93,7 +94,13 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .hero {
+    background: #fdcc04; /* Maintain the background color */
+    /* Adjust the padding or other styles as needed for vertical screens */
+  }
+  
   .hero-container {
     grid-template-columns: 1fr;
+    padding: 3rem 1rem;
   }
 }
