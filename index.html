@@ -1,36 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <nav>
-      <div class="logo">AKIBA</div>
-      <div class="nav-items">
-        <a href="/">Home</a> <a href="/">About</a> <a href="/">Contact</a>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - XRPL - Mint and Burn NFT&#39;s</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+
+<head>
+  <title>XRPL Token Test Harness</title>
+  <link href='https://fonts.googleapis.com/css?family=Work Sans' rel='stylesheet'>
+  <script src='https://unpkg.com/xrpl@2.6.0'></script>
+  <script>
+    if (typeof module !== "undefined") {
+      const xrpl = require('xrpl')
+    }
+  </script>
+
+</head>
+
+<body>
+  <div id="selectLedger">
+    <div class="appField">
+      <strong>Choose your ledger instance:</strong><br />
+      <input type="radio" id="tn" name="server" value="wss://s.altnet.rippletest.net:51233" checked>
+      <label for="testnet">Testnet</label>
+      &nbsp;&nbsp;
+      <input type="radio" id="dn" name="server" value="wss://s.devnet.rippletest.net:51233">
+      <label for="devnet">Devnet</label>
+    </div>
+    <div class="appField">
+      <button type="button" onClick="getAccountsFromSeeds()">Get Accounts From Seeds</button><br />
+      <textarea id="seeds" cols="40" rows="2"></textarea>
+    </div>
+  </div>
+    <div id="flexContainer">
+    <div class="flexColumn">
+  <div id="standbyApp">
+    <button type="button" onClick="getAccount('standby')">Create Standby Account</button><br />
+
+    <h2>Standby Account Info</h2>
+    <div class="appField">Standby Account<br />
+      <div id="standbyAccountField" class="appValue"></div>
+    </div>
+    <div class="appField">Public Key<br />
+      <div id="standbyPubKeyField" class="appValue"></div>
+    </div>
+    <div class="appField">Private Key<br />
+      <div id="standbyPrivKeyField" class="appValue"></div>
+    </div>
+    <div class="appField"> Seed<br />
+      <div id="standbySeedField" class="appValue"></div>
+    </div>
+    <div class="appField"> XRP Balance<br />
+      <div id="standbyBalanceField" class="appValue"></div>
+    </div>
+
+    <div id="standbyTransact">
+      <p><strong>Send XRP or Currency</strong></p>
+      <div class="appField">
+        Amount<br />
+        <input id="standbyAmountField" class="appValue"></input>
       </div>
-    </nav>
-    <section class="hero">
-      <div class="hero-container">
-        <div class="column-left">
-          <h1>Akiba Arcade: The Ultimate Mobile Gaming Marketplace on XRPL</h1>
-          <p>
-            Akiba Arcade is a cutting-edge platform designed to revolutionise the trading of digital assets within the mobile gaming community. We aims to create a secure, decentralised, and community-driven ecosystem where enthusiasts can exchange game accounts and other digital assets with ease and confidence. 
-          </p>
-          <button>Get Started</button>
-        </div>
-        <div class="column-right">
-          <img
-            src="./image-1.png"
-            alt="illustration
-        "
-            class="hero-image"
-          />
-        </div>
+      <div class="appField">
+        Destination Account <br />
+        <input id="standbyDestinationField" class="appValue"></input>
       </div>
-    </section>
-  </body>
+      <div class="appField">
+        Currency<br />
+        <input type="text" class="appValue" id="standbyCurrencyField" size="30" value="USD"></input>
+      </div>
+      <br /><br />
+      <button type="button" onClick="configureAccount('standby',document.querySelector('#standbyDefault').checked)">Configure Account</button><br />
+      <input type="checkbox" id="standbyDefault" checked="true" />
+      <label for="standbyDefault">Allow Rippling</label>
+  
+  <p align="right">
+        <button type="button" onClick="createTrustline()">Create TrustLine</button>
+        <button type="button" onClick="sendCurrency()">Send Currency</button>
+        <button type="button" onClick="getBalances()">Get Balances</button>
+        <button type="button" onClick="sendXRP()">Send XRP &#8594;</button>
+      </p>
+  
+  <p><strong>NFTs</strong></p>
+ <div class="appField">
+  NFToken URL<br />
+  <input type="text" id="standbyTokenUrlField" class="appValue" value="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi" />
+ </div>
+  <div class="appField">
+    Flags<br />
+    <input class="appValue" type="text" id="standbyFlagsField" value="1" size="10" />
+  </div>
+  <div class="appField">
+     NFToken ID<br />
+    <input class="appValue" type="text" id="standbyTokenIdField" value="" />
+  </div>
+  <div class="appField">
+     Transfer Fee<br />
+     <input class="appValue" type="text" id="standbyTransferFeeField" value="" />
+  </div>
+  <p align="right">
+    <button type="button" onClick="mintToken()">Mint NFToken</button>
+    <button type="button" onClick="getTokens()">Get NFTokens</button>
+    <button type="button" onClick="burnToken()">Burn NFToken</button>
+  </p>
+      <p><strong>Transaction Log</strong></p>
+      <div id="standbyResultField"></div>
+    </div>
+
+  </div>
+  </div>
+    <div class="flexColumn">
+  <div id="operationalApp">
+    <button type="button" onClick="getAccount('operational')">Create Operational Account</button><br />
+
+    <h2>Operational Account Info</h2>
+    <div class="appField">Standby Account<br />
+      <div id="operationalAccountField" class="appValue"></div>
+    </div>
+    <div class="appField">Public Key<br />
+      <div id="operationalPubKeyField" class="appValue"></div>
+    </div>
+    <div class="appField">Private Key<br />
+      <div id="operationalPrivKeyField" class="appValue"></div>
+    </div>
+    <div class="appField"> Seed<br />
+      <div id="operationalSeedField" class="appValue"></div>
+    </div>
+    <div class="appField"> XRP Balance<br />
+      <div id="operationalBalanceField" class="appValue"></div>
+    </div>
+
+    <div id="operationalTransact">
+      <p><strong>Send XRP</strong></p>
+      <div class="appField">
+        Amount<br />
+        <input id="operationalAmountField" class="appValue"></input>
+      </div>
+      <div class="appField">
+        Destination Account <br />
+        <input id="operationalDestinationField" class="appValue"></input>
+      </div>
+      <div class="appField">
+        Currency<br />
+        <input type="text" class="appValue" id="operationalCurrencyField" size="30" value="USD"></input>
+      </div>
+      <br /><br />
+      <button type="button" onClick="configureAccount('standby',document.querySelector('#standbyDefault').checked)">Configure Account</button><br />
+      <input type="checkbox" id="operationalDefault" checked="true" />
+      <label for="operationalDefault">Allow Rippling</label>
+      <p align="right">
+        <button type="button" onClick="oPcreateTrustline()">Create TrustLine</button>
+        <button type="button" onClick="oPsendCurrency()">Send Currency</button>
+        <button type="button" onClick="oPgetBalances()">Get Balances</button>
+        <button type="button" onClick="oPsendXRP()"> &#8592; Send XRP</button>
+      </p>
+<p><strong>NFTs</strong></p>
+ <div class="appField">
+  NFToken URL<br />
+  <input type="text" id="operationalTokenUrlField" class="appValue" value="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi" />
+ </div>
+  <div class="appField">
+    Flags<br />
+    <input class="appValue" type="text" id="operationalFlagsField" value="1" />
+  </div>
+  <div class="appField">
+     NFToken ID<br />
+    <input class="appValue" type="text" id="operationalTokenIdField" value="" />
+  </div>
+  <div class="appField">
+     Transfer Fee<br />
+     <input class="appValue" type="text" id="operationalTransferFeeField" value="" />
+  </div>
+  <p align="right">
+    <button type="button" onClick="oPmintToken()">Mint NFToken</button>
+    <button type="button" onClick="oPgetTokens()">Get NFTokens</button>
+    <button type="button" onClick="oPburnToken()">Burn NFToken</button>
+  </p>
+      <p><strong>Transaction Log</strong></p>
+      <div id="operationalResultField"></div>
+    </div>
+
+  </div>
+</div>
+</div>
+</body>
+
+</html>
+<!-- partial -->
+  <script src='https://assets.codepen.io/t-4946/get-accounts-send-xrp.js'></script>
+<script src='https://assets.codepen.io/t-4946/create-trustline-send-currency.js'></script><script  src="./script.js"></script>
+
+</body>
 </html>
